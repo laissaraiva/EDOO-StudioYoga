@@ -1,14 +1,20 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.28)
 
-project(Projet CXX)
+project(Studio-Yoga)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-target_include_directories(${PROJECT_NAME} PUBLIC include)
-
-set(SOURCES
-    src/*
+add_executable(Studio-Yoga
+   src/main.cpp
+   src/Aula.cpp
+   src/HotYoga.cpp
+   src/Instrutor.cpp
+   src/Pessoa.cpp
+   src/Plano.cpp
+   src/Praticante.cpp
+   src/TipoDeAula.cpp
+   src/YogaComPets.cpp
+   src/YogaTradicional.cpp
+   src/databaseManager.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+target_include_directories(Studio-Yoga PUBLIC include)
+
