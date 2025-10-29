@@ -40,9 +40,10 @@ bool DatabaseManager::inicializarTabelas(const std::string &schemaSqlPath) {
     return false;
   }
 
-  std::ifstream schemFile(schemaSqlPath) if (!schemaFile.is_open()) {
+  std::ifstream schemaFile(schemaSqlPath);
+  if (!schemaFile.is_open()) {
     std::cerr << "Erro ao abrir o arquivo schema.sql em: " << schemaSqlPath
-              << std::sql;
+              << std::endl;
     return false;
   }
 
