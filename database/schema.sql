@@ -3,8 +3,7 @@ PRAGMA foreign_keys = ON ;
 CREATE TABLE IF NOT EXISTS Plano (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 nome TEXT NOT NULL,
-preco REAL NOT NULL,
-
+preco REAL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS TipoDeAula (
@@ -41,17 +40,18 @@ CREATE TABLE IF NOT EXISTS Instrutor (
 
   instrutor_id INTEGER NOT NULL,
   tipo_aula_id INTEGER NOT NULL,
-  FOREIGN KEY (instrutor_id) REFERENCES Instrutor(id)
-  FOREIGN KEY (tipo_aula_id) REFERENCES TipoDeAula(id)
 
+  FOREIGN KEY (instrutor_id) REFERENCES Instrutor(id),
+  FOREIGN KEY (tipo_aula_id) REFERENCES TipoDeAula(id)
 );
 
 CREATE TABLE IF NOT EXISTS Participa (
   praticante_id INTEGER NOT NULL,
   aula_id INTEGER NOT NULL,
-  FOREIGN KEY(praticante_id) REFERENCES Praticante(id)
-  FOREIGN KEY(aula_id) REFERENCES Praticante(id)
+
+  FOREIGN KEY(praticante_id) REFERENCES Praticante(id),
+  FOREIGN KEY(aula_id) REFERENCES Aula(id),
 
   PRIMARY KEY (praticante_id, aula_id)
-)
+);
 
