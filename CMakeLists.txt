@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.28)
 project(Studio-Yoga)
 
 add_executable(Studio-Yoga
+   #Arquivo fonte do sqlite3 no modo almagamation
+   src/sqlite3.c
+
    src/main.cpp
    src/Aula.cpp
    src/HotYoga.cpp
@@ -18,3 +21,6 @@ add_executable(Studio-Yoga
 
 target_include_directories(Studio-Yoga PUBLIC include)
 
+if(UNIX)
+  target_link_libraries(Studio-Yoga PUBLIC pthread dl)
+endif()
