@@ -1,6 +1,6 @@
-#include "Aula.h"
-#include "Praticante.h"      // Para poder chamar praticante->getId()
-#include "databaseManager.h" // Para saber o que é DatabaseManager
+#include "services/Aula.h"
+#include "repository/databaseManager.h" // Para saber o que é DatabaseManager
+#include "services/Praticante.h"        // Para poder chamar praticante->getId()
 #include <iostream>
 
 class Praticante;

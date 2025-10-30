@@ -17,12 +17,7 @@ public:
 
   bool inicializarTabelas(const std::string &schemaSqlPath);
 
-  // Método POST para entidade Participa
-  bool inserirInscricao(int idPraticante, int aulaId);
-
-  void validarInscritosNaAula(int aulaId);
-
-  bool executarSQLSimples(const std::string &sql);
+  sqlite3* getDBHandle(); // Fornece a conexão para os repositórios
 };
 
 #endif
