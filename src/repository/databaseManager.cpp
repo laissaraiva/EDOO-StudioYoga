@@ -67,4 +67,5 @@ bool DatabaseManager::inicializarTabelas(const std::string &schemaSqlPath) {
   return true;
 }
 
+// Implementação do método para obter o ponteiro do banco de dados
 sqlite3 *DatabaseManager::getDBHandle() { return db; }
