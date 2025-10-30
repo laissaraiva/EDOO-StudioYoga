@@ -2,6 +2,7 @@
 #define PESSOA_H
 
 #include <string>
+#include <iostream>
 
 class Pessoa {
 protected:
@@ -17,6 +18,7 @@ public:
     std::string getNome() const;
     std::string getCPF() const;
     std::string getGenero() const;
+    int getId() const;
 
     // Método virtual puro
     virtual void exibirDetalhes() const = 0;

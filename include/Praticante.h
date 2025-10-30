@@ -12,12 +12,14 @@ class Praticante : public Pessoa {
 private:
     Plano* plano;
     std::vector<Aula*> aulasInscritas;
+    int Id;
 
 public:
     Praticante(const std::string& nome, const std::string& cpf, const std::string& genero);
     ~Praticante(); // Destrutor para gerenciar o ponteiro do plano
 
     void setPlano(Plano* novoPlano);
+    int getId();
     Plano* getPlano() const;
 
     void inscreverEmAula(Aula* aula);

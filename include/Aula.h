@@ -11,24 +11,26 @@ class TipoDeAula;
 
 class Aula {
 private:
-    int id;
-    std::string dataHora;
-    int capacidadeMaxima;
-    TipoDeAula* tipoDeAula;
-    Instrutor* instrutor;
-    std::vector<Praticante*> praticantesInscritos;
+  int id;
+  std::string dataHora;
+  int capacidadeMaxima;
+  TipoDeAula *tipoDeAula;
+  Instrutor *instrutor;
+  std::vector<Praticante *> praticantesInscritos;
 
 public:
-    Aula(int id, const std::string& dataHora, int capacidade, TipoDeAula* tipo, Instrutor* instr);
-    ~Aula(); // Destrutor para gerenciar ponteiros, se necessário
+  Aula(int id, const std::string &dataHora, int capacidade, TipoDeAula *tipo,
+       Instrutor *instr);
+  ~Aula(); // Destrutor para gerenciar ponteiros, se necessário
 
-    bool adicionarPraticante(Praticante* praticante);
-    bool removerPraticante(Praticante* praticante);
-    int verificarVagas() const;
+  bool adicionarPraticante(Praticante *praticante,
+                           class DatabaseManager &dbManager);
+  bool removerPraticante(Praticante *praticante);
+  int verificarVagas() const;
 
-    void listarPraticantesInscritos() const;
-    void exibirDetalhesCompletos() const;
-    int getId() const;
+  void listarPraticantesInscritos() const;
+  void exibirDetalhesCompletos() const;
+  int getId() const;
 };
 
 #endif // AULA_H
