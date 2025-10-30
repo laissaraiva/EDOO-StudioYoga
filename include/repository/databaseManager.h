@@ -17,7 +17,7 @@ public:
 
   bool inicializarTabelas(const std::string &schemaSqlPath);
 
-  //sqlite3* getDBHandle(); // Fornece a conexão para os repositórios
+  sqlite3 *getDBHandle(); // Fornece a conexão para os repositórios
 };
 
 #endif
