@@ -67,7 +67,7 @@ bool DatabaseManager::inicializarTabelas(const std::string &schemaSqlPath) {
   return true;
 }
 
-bool DatabaseManager::inserirInscricao(int praticanteId, int aulaId) {
+/* bool DatabaseManager::inserirInscricao(int praticanteId, int aulaId) {
   if (!db) {
     std::cerr << "Erro: Banco de dados não está aberto." << std::endl;
     return false;
@@ -165,3 +165,4 @@ bool DatabaseManager::executarSQLSimples(const std::string &sql) {
   }
   return true;
 }
+*/

@@ -17,15 +17,15 @@ add_executable(Studio-Yoga
    src/services/YogaComPets.cpp
    src/services/YogaTradicional.cpp
 
-   src/repository/AulaRepository.cpp
-   src/repository/HotYogaRepository.cpp
-   src/repository/InstrutorRepository.cpp
-   src/repository/PessoaRepository.cpp
-   src/repository/PlanoRepository.cpp
-   src/repository/PraticanteRepository.cpp
-   src/repository/TipoDeAulaRepository.cpp
-   src/repository/YogaComPetsRepository.cpp
-   src/repository/YogaTradicionalRepository.cpp
+   #src/repository/AulaRepository.cpp
+   #src/repository/HotYogaRepository.cpp
+   #src/repository/InstrutorRepository.cpp
+   #src/repository/PessoaRepository.cpp
+   #src/repository/PlanoRepository.cpp
+   #src/repository/PraticanteRepository.cpp
+   #src/repository/TipoDeAulaRepository.cpp
+   #src/repository/YogaComPetsRepository.cpp
+   #src/repository/YogaTradicionalRepository.cpp
    src/repository/databaseManager.cpp
 )
 

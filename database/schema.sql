@@ -4,7 +4,7 @@ CREATE TABLE
   IF NOT EXISTS Plano (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
-    preco REAL NOT NULL,
+    preco REAL NOT NULL
   );
 
 CREATE TABLE
@@ -50,4 +50,4 @@ CREATE TABLE
     praticante_id INTEGER NOT NULL,
     aula_id INTEGER NOT NULL,
     FOREIGN KEY (praticante_id) REFERENCES Praticante (id) FOREIGN KEY (aula_id) REFERENCES Praticante (id) PRIMARY KEY (praticante_id, aula_id)
-  )
+  );
