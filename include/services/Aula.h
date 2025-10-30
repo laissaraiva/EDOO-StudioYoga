@@ -39,10 +39,8 @@ public:
   void setDataHora(const std::string &dataHora);
 
   // --- REGRAS DE NEGÓCIO ---
-  bool adicionarPraticante(Praticante *praticante,
-                           class DatabaseManager &dbManager);
-  bool removerPraticante(Praticante *praticante,
-                         class DatabaseManager &dbManager);
+  bool adicionarPraticante(Praticante *praticante);
+  bool removerPraticante(Praticante *praticante);
   int verificarVagas() const;
   void listarPraticantesInscritos() const;
   void exibirDetalhesCompletos() const;
