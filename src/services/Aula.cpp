@@ -137,22 +137,22 @@ bool Aula::removerPraticante(Praticante *praticante)
   return false;
 }
 
-int Aula::verificarVagas()
+int Aula::verificarVagas() const
 {
   return this->getCapacidadeMaxima() - this->getNumeroDePraticantesInscritos();
 }
 
-void Aula::listarPraticantesInscritos()
+void Aula::listarPraticantesInscritos() const
 {
-  // TO-DO: Adicionar o getPlano()->getNome() depois 
-  cout << " --------------PRATICANTES INSCRITOS--------------" << std::endl;
+  // TO-DO: Adicionar o getPlano()->getNome() depois
+  std::cout << " --------------PRATICANTES INSCRITOS--------------" << std::endl;
   for (auto it = this->praticantesInscritos.begin(); it != this->praticantesInscritos.end(); ++it)
   {
-    cout << (*it)->getId() << (*it)->getNome() << (*it)->getPlano() << endl;
+    std::cout << (*it)->getId() << (*it)->getNome() << (*it)->getPlano() << std::endl;
   }
 }
 
-void Aula::exibirDetalhesCompletos()
+void Aula::exibirDetalhesCompletos() const
 {
   // TO-DO: Preciso após implementação das classes praticantes e tipo de aula, retornar o nome do instrutor e o nome do tipo de aula, ao invés de retornar o objeto inteiro
   int aulaId = this->getId();
@@ -162,11 +162,11 @@ void Aula::exibirDetalhesCompletos()
   Instrutor *inst = this->getInstrutor();
   std::string dH = this->getDataHora();
 
-  cout << "--------------DETALHES DA AULA--------------"<< std::endl
-       << "Id: " << aulaId << endl
-       << "Capacidade: " << capacidadeMaxima << endl
-       << "Número de praticantes: " << numPraticantes << endl
-       << "Tipo de aula: " << tpAula->getNome() << endl
-       << "Instrutor: " << inst->getNome() << endl
-       << "Data e hora das aulas: " << dH << endl;
+  std::cout << "--------------DETALHES DA AULA--------------" << std::endl
+            << "Id: " << aulaId << std::endl
+            << "Capacidade: " << capacidadeMaxima << std::endl
+            << "Número de praticantes: " << numPraticantes << std::endl
+            << "Tipo de aula: " << std::endl
+            << "Instrutor: " << std::endl
+            << "Data e hora das aulas: " << dH << std::endl;
 }

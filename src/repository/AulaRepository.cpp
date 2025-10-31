@@ -17,12 +17,12 @@ AulaRepository::AulaRepository(sqlite3 *dbHandle) : db(dbHandle)
 // --- CRUD Operations ---
 // --- CREATE ---
 
-Aula *AulaRepository::agendarAula(const std::string &dataHora, int capacidade, Instrutor *instrutor, TipoDeAula *tipoAula)
+int AulaRepository::agendarAula(const std::string &dataHora, int capacidade,  int instrutorId,  int tipoAulaId)
 {
-
+    
     // Valida por precaução se o banco de dados continua válido
     if (this->db == nullptr)
-        return nullptr;
+        return -1;
 
     // Criamos o template com o comando sql que iremos utilizar para inserir os dados
     const char *sql = "INSERT INTO Aula (dataHora, capacidadeMaxima, instrutor_id, tipo_aula_id) "
@@ -34,14 +34,14 @@ Aula *AulaRepository::agendarAula(const std::string &dataHora, int capacidade, I
     if (sqlite3_prepare_v2(this->db, sql, -1, &stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "[ERRO DB] ao preparar 'agendarAula': " << sqlite3_errmsg(this->db) << std::endl;
-        return nullptr;
+        return -1;
     }
 
     // Liga as variáveis c++ aos placeholders do template ( os "?" que estão no template)
     sqlite3_bind_text(stmt, 1, dataHora.c_str(), -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(stmt, 2, capacidade);
-    sqlite3_bind_int(stmt, 3, instrutor->getId());
-    sqlite3_bind_int(stmt, 4, tipoAula->getId());
+    sqlite3_bind_int(stmt, 3, instrutorId);
+    sqlite3_bind_int(stmt, 4, tipoAulaId);
 
     // Executa o comando
     if (sqlite3_step(stmt) != SQLITE_DONE)
@@ -49,7 +49,7 @@ Aula *AulaRepository::agendarAula(const std::string &dataHora, int capacidade, I
         std::cerr
             << "[ERRO DB] ao executar 'agendarAula': " << sqlite3_errmsg(this->db) << std::endl;
         sqlite3_finalize(stmt);
-        return nullptr;
+        return -1;
     }
 
     // Pega o id gerado pelo banco de dados
@@ -60,10 +60,7 @@ Aula *AulaRepository::agendarAula(const std::string &dataHora, int capacidade, I
 
     std::cout << "[DB] Aula agendada com sucesso. Novo ID: " << novoId << std::endl;
 
-    // Cria o objeto novaAula com os dados armazenados no bd
-    Aula *novaAula = new Aula(novoId, dataHora, capacidade, tipoAula, instrutor);
-
-    return novaAula;
+    return novoId;
 }
 
 bool AulaRepository::inscreverPraticanteEmAula(int praticanteId, int aulaId)
@@ -130,5 +127,5 @@ Basicamente vai pegar esse statement que foi gerado no passo anterior e vai atri
 
 4. Finalize ( sqlite3_finalize)
 
-Serve somente para liberar o ponteiro do sqlite3_stmt* que utilizamos previamente.
+Serve somente para liberar o ponteiro do sqlite3_stmt* que utilizamos previamente e não gerar vazamento de memória.
 */

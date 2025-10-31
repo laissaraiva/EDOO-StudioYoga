@@ -1,6 +1,6 @@
 #include "services/Pessoa.h"
 
-oaessoa::Pessoa(const std::string &nome, const std::string &cpf,
+Pessoa::Pessoa(const std::string &nome, const std::string &cpf,
                 const std::string &genero)
     : nome(nome), cpf(cpf), genero(genero) {}
 

@@ -1,6 +1,8 @@
 #include "sqlite3.h"
+#include <string>
 
-class AulaRepository {
+class AulaRepository
+{
 private:
   sqlite3 *db;
 
@@ -11,8 +13,8 @@ public:
 
   // --- CREATE ---
 
-  Aula *agendarAula(const std::string &dataHora, int capacidade,
-                    int tipoDeAulaId, int instrutorId);
+  int agendarAula(const std::string &dataHora, int capacidade,
+                  int instrutorId, int tipoAulaId);
 
   bool inscreverPraticanteEmAula(int praticanteId, int aulaID);
-}
+};

@@ -4,4 +4,12 @@
 #include <algorithm>
 #include <iostream>
 
+int Praticante::getId()
+{
+    return this->Id;
+}
 
+Plano *Praticante::getPlano() const
+{
+    return this->plano;
+}

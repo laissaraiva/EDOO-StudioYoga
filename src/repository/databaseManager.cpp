@@ -69,3 +69,15 @@ bool DatabaseManager::inicializarTabelas(const std::string &schemaSqlPath) {
 
 // Implementação do método para obter o ponteiro do banco de dados
 sqlite3 *DatabaseManager::getDBHandle() { return db; }
+
+bool DatabaseManager::executarSQLSimples(const std::string& sql)
+{
+  if (!db) return false;
+    char* errMsg = nullptr;
+    if (sqlite3_exec(db, sql.c_str(), nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        std::cerr << "Erro em SQL simples: " << errMsg << std::endl;
+        sqlite3_free(errMsg);
+        return false;
+    }
+    return true;
+}
