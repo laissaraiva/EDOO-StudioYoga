@@ -1,5 +1,9 @@
 #include "../include/Pessoa.h"
 
+std::int Pessoa::getId() const {
+    return id;
+}
+
 std::string Pessoa::getNome() const {
     return nome;
 }
@@ -14,6 +18,10 @@ std::string Pessoa::getGenero() const {
 
 std::string Pessoa::getTelefone() const {
     return telefone;
+}
+
+void Pessoa::setId(const int& id) {
+    id = i;
 }
 
 void Pessoa::setNome(const std::string& n) {

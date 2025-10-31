@@ -11,8 +11,8 @@ protected:
     std::string telefone;
 
 public:
-    Pessoa(const std::string& nome, const std::string& cpf, const std::string& genero, const std::string& telefone)
-    : nome(nome), cpf(cpf), genero(genero), telefone(telefone) {}
+    Pessoa(const std::int& id, const std::string& nome, const std::string& cpf, const std::string& genero, const std::string& telefone)
+    : id(id), nome(nome), cpf(cpf), genero(genero), telefone(telefone) {}
 
     virtual ~Pessoa() = default; // Destrutor virtual para classes base
 
