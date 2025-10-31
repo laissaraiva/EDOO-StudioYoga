@@ -1,7 +1,7 @@
 #include "services/Pessoa.h"
 
 Pessoa::Pessoa(const std::string &nome, const std::string &cpf,
-               const std::string &genero)
+                const std::string &genero)
     : nome(nome), cpf(cpf), genero(genero) {}
 
 std::string Pessoa::getNome() const { return nome; }

@@ -17,7 +17,7 @@ add_executable(Studio-Yoga
    src/services/YogaComPets.cpp
    src/services/YogaTradicional.cpp
 
-   #src/repository/AulaRepository.cpp
+   src/repository/AulaRepository.cpp
    #src/repository/HotYogaRepository.cpp
    #src/repository/InstrutorRepository.cpp
    #src/repository/PessoaRepository.cpp
