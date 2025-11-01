@@ -1,5 +1,5 @@
+#include "services/Aula.h"
 #include "sqlite3.h"
-#include <string>
 
 class AulaRepository
 {
@@ -14,7 +14,10 @@ public:
   // --- CREATE ---
 
   int agendarAula(const std::string &dataHora, int capacidade,
-                  int instrutorId, int tipoAulaId);
+                    int tipoDeAulaId, int instrutorId);
 
   bool inscreverPraticanteEmAula(int praticanteId, int aulaID);
+
+  // --- READ ---
+  void listarAulas();
 };
