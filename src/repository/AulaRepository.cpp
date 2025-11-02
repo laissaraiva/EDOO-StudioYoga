@@ -114,6 +114,7 @@ bool AulaRepository::inscreverPraticanteEmAula(int praticanteId, int aulaId) {
   return true;
 }
 
+// --- READ ---
 void AulaRepository::listarAulas() {
   if (this->db == nullptr) {
     std::cerr << "[ERRO] Banco de dados não está disponível para 'listarAulas'"
@@ -151,6 +152,144 @@ void AulaRepository::listarAulas() {
   }
 
   sqlite3_finalize(stmt);
+}
+
+void AulaRepository::listarAulaPorId(int aulaId) {
+  if (this->db == nullptr) {
+    std::cerr
+        << "[ERRO] Banco de dados não está disponível para 'listarAulaPorId'"
+        << std::endl;
+    return;
+  }
+
+  const char *sql = "SELECT a.id, a.dataHora, a.capacidadeMaxima, "
+                    "i.nome AS instrutorNome, t.nome AS tipoAulaNome "
+                    "FROM Aula a "
+                    "JOIN Instrutor i ON a.instrutor_id = i.id "
+                    "JOIN TipoDeAula t ON a.tipo_aula_id = t.id "
+                    "WHERE a.id = ?;";
+
+  sqlite3_stmt *stmt = nullptr;
+
+  if (sqlite3_prepare_v2(this->db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    std::cerr << "[ERRO DB] ao preparar 'listarAulaPorId': "
+              << sqlite3_errmsg(this->db) << std::endl;
+    return;
+  }
+
+  sqlite3_bind_int(stmt, 1, aulaId);
+
+  std::cout << "===== Sua aula: =====" << std::endl;
+
+  if (sqlite3_step(stmt) == SQLITE_ROW) {
+    int id = sqlite3_column_int(stmt, 0);
+    const unsigned char *dataHora = sqlite3_column_text(stmt, 1);
+    int capacidadeMaxima = sqlite3_column_int(stmt, 2);
+    const unsigned char *instrutorNome = sqlite3_column_text(stmt, 3);
+    const unsigned char *tipoAulaNome = sqlite3_column_text(stmt, 4);
+
+    std::cout << "ID: " << id << ", Data/Hora: " << dataHora
+              << ", Capacidade Máxima: " << capacidadeMaxima
+              << ", Instrutor: " << instrutorNome
+              << ", Tipo de Aula: " << tipoAulaNome << std::endl;
+  } else {
+    std::cout << "[DB] Aula com ID " << aulaId << " não foi encontrada."
+              << std::endl;
+  }
+
+  sqlite3_finalize(stmt);
+}
+// --- UPDATE ---
+bool AulaRepository::atualizarAula(int aulaId, int novaCapacidade) {
+  if (this->db == nullptr) {
+    std::cerr << "[ERRO] Banco de dados não está disponível para 'deletarAula'"
+              << std::endl;
+    return false;
+  }
+
+  const char *sql = "UPDATE Aula SET capacidadeMaxima = ? "
+                    "WHERE id = ?;";
+
+  sqlite3_stmt *stmt = nullptr;
+
+  // 2. PREPARE
+  if (sqlite3_prepare_v2(this->db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    std::cerr << "[ERRO DB] ao preparar 'atualizarAula': "
+              << sqlite3_errmsg(this->db) << std::endl;
+    return false;
+  }
+
+  // 3. BIND
+  sqlite3_bind_int(stmt, 1, novaCapacidade); // SET capacidadeMaxima = ?
+  sqlite3_bind_int(stmt, 2, aulaId);         // WHERE id = ?
+
+  // 4. STEP
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    std::cerr << "[ERRO DB] ao executar 'atualizarAula': "
+              << sqlite3_errmsg(this->db) << std::endl;
+    sqlite3_finalize(stmt);
+    return false;
+  }
+
+  // 5. FINALIZE
+  sqlite3_finalize(stmt);
+
+  // Verificar se alguma linha foi realmente deletada
+  int changes = sqlite3_changes(this->db);
+  if (changes > 0) {
+    std::cout << "[DB] Aula " << aulaId << " atualizada com sucesso."
+              << std::endl;
+  } else {
+    std::cout << "[DB] Aula " << aulaId << " não foi encontrada." << std::endl;
+  }
+
+  return true;
+}
+
+bool AulaRepository::deletarAula(int aulaId) {
+  if (this->db == nullptr) {
+    std::cerr << "[ERRO] Banco de dados não está disponível para 'deletarAula'"
+              << std::endl;
+    return false;
+  }
+
+  // 1. Template sql para inserir na tabela participa
+  const char *sql = "DELETE FROM Aula WHERE id = ?;";
+
+  sqlite3_stmt *stmt =
+      nullptr; // Variável que vai receber o template sql pós compilado
+
+  // 2. PREPARE
+  if (sqlite3_prepare_v2(this->db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+    std::cerr << "[ERRO DB] ao preparar 'deletarAula': "
+              << sqlite3_errmsg(this->db) << std::endl;
+    return false;
+  }
+
+  // 3. BIND
+  sqlite3_bind_int(stmt, 1, aulaId);
+
+  // 4. STEP
+  if (sqlite3_step(stmt) != SQLITE_DONE) {
+    std::cerr << "[ERRO DB] ao executar 'deletarAula': "
+              << sqlite3_errmsg(this->db) << std::endl;
+    sqlite3_finalize(stmt);
+    return false;
+  }
+
+  // 5. FINALIZE
+  sqlite3_finalize(stmt);
+
+  // Verificar se alguma linha foi realmente deletada
+  int changes = sqlite3_changes(this->db);
+  if (changes > 0) {
+    std::cout << "[DB] Aula " << aulaId << " deletada com sucesso."
+              << std::endl;
+  } else {
+    std::cout << "[DB] Aula " << aulaId << " não foi encontrada." << std::endl;
+  }
+
+  return true;
 }
 
 /*

@@ -1,11 +1,15 @@
 #include "repository/AulaRepository.h"
 #include "repository/databaseManager.h"
+#include "services/Aula.h"
 #include <iostream>
 
 void exibirMenuPrincipal();
 void agendarNovaAula(AulaRepository &aulaRepo);
 void inscreverPraticanteEmAula(AulaRepository &aulaRepo);
 void gerenciarAulas(AulaRepository &aulaRepo);
+void listarAula(AulaRepository &aulaRepo);
+void deletarAula(AulaRepository &aulaRepo);
+void atualizarAula(AulaRepository &aulaRepo);
 
 int main()
 {
@@ -91,10 +95,13 @@ void gerenciarAulas(AulaRepository &aulaRepo)
   while (true)
   {
     std::cout << "===== Gerenciamento de Aulas =====" << std::endl;
-    std::cout << "1. Agendar Nova Aula" << std::endl;
-    std::cout << "2. Inscrever Praticante em Aula" << std::endl;
-    std::cout << "3. Listar Aulas" << std::endl;
-    std::cout << "0. Voltar ao Menu Principal" << std::endl;
+    std::cout << "1. Agendar nova Aula" << std::endl;
+    std::cout << "2. Listar Aulas" << std::endl;
+    std::cout << "3. Listar Aula específica" << std::endl;
+    std::cout << "4. Deletar Aula" << std::endl;
+    std::cout << "5. Atualizar Aula" << std::endl;
+    std::cout << "6. Inscrever Praticante em Aula" << std::endl;
+    std::cout << "7. Voltar ao Menu Principal" << std::endl;
     std::cout << "Escolha uma opção: ";
     std::cin >> escolha;
 
@@ -104,12 +111,21 @@ void gerenciarAulas(AulaRepository &aulaRepo)
       agendarNovaAula(aulaRepo);
       break;
     case 2:
-      inscreverPraticanteEmAula(aulaRepo);
-      break;
-    case 3:
       aulaRepo.listarAulas();
       break;
-    case 0:
+    case 3:
+      listarAula(aulaRepo);
+      break;
+    case 4:
+      deletarAula(aulaRepo);
+      break;
+    case 5:
+      atualizarAula(aulaRepo);
+      break;
+    case 6:
+      inscreverPraticanteEmAula(aulaRepo);
+      break;
+    case 7:
       return;
     default:
       std::cout << "Opção inválida. Tente novamente." << std::endl;
@@ -144,7 +160,49 @@ void agendarNovaAula(AulaRepository &aulaRepo)
     std::cout << "Falha ao agendar a aula." << std::endl;
   }
 }
+void listarAula(AulaRepository &aulaRepo)
+{
+  int aulaId;
+  std::cout << "Digite o ID da aula a ser listada: ";
+  std::cin >> aulaId;
 
+  aulaRepo.listarAulaPorId(aulaId);
+}
+void deletarAula(AulaRepository &aulaRepo)
+{
+  int aulaId;
+  std::cout << "Digite o ID da aula a ser deletada: ";
+  std::cin >> aulaId;
+
+  if (aulaRepo.deletarAula(aulaId))
+  {
+    std::cout << "Aula deletada com sucesso!" << std::endl;
+  }
+  else
+  {
+    std::cout << "Falha ao deletar a aula. Verifique o ID." << std::endl;
+  }
+}
+
+void atualizarAula(AulaRepository &aulaRepo)
+{
+  int aulaId, novaCapacidade;
+
+  std::cout << "Digite o ID da aula: ";
+  std::cin >> aulaId;
+  std::cout << "Digite a nova capacidade da aula: ";
+  std::cin >> novaCapacidade;
+
+  if (aulaRepo.atualizarAula(aulaId, novaCapacidade))
+  {
+    std::cout << "Aula atualizada com sucesso !" << std::endl;
+  }
+  else
+  {
+    std::cout << "Falha ao atualizar a aula!"
+              << std::endl;
+  }
+}
 void inscreverPraticanteEmAula(AulaRepository &aulaRepo)
 {
   int praticanteId, aulaId;

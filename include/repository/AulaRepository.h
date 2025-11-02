@@ -13,11 +13,17 @@ public:
 
   // --- CREATE ---
 
-  int agendarAula(const std::string &dataHora, int capacidade,
-                    int tipoDeAulaId, int instrutorId);
+  int agendarAula(const std::string &dataHora, int capacidade, int tipoDeAulaId,
+                  int instrutorId);
 
   bool inscreverPraticanteEmAula(int praticanteId, int aulaID);
 
   // --- READ ---
   void listarAulas();
+  void listarAulaPorId(int aulaId);
+
+  // --- UPDATE ---
+  bool atualizarAula(int aulaId, int novaCapacidade);
+  // --- DELETE ---
+  bool deletarAula(int aulaId);
 };
