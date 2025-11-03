@@ -22,7 +22,7 @@ add_executable(Studio-Yoga
    #src/repository/InstrutorRepository.cpp
    #src/repository/PessoaRepository.cpp
    #src/repository/PlanoRepository.cpp
-   #src/repository/PraticanteRepository.cpp
+   src/repository/PraticanteRepository.cpp
    #src/repository/TipoDeAulaRepository.cpp
    #src/repository/YogaComPetsRepository.cpp
    #src/repository/YogaTradicionalRepository.cpp
