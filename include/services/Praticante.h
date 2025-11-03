@@ -1,31 +1,34 @@
 #ifndef PRATICANTE_H
 #define PRATICANTE_H
 
-#include "Pessoa.h" // Inclui a classe pai
+#include <string>
 #include <vector>
+#include "Pessoa.h" // Herda
 
-// Forward declarations
+// Forward declarations para evitar dependências circulares
 class Plano;
 class Aula;
 
 class Praticante : public Pessoa {
 private:
-    Plano* plano;
-    std::vector<Aula*> aulasInscritas;
-    int Id;
+    Plano *plano; // Acoplamento explícito
+    std::vector<Aula *> aulasInscritas;
 
 public:
-    Praticante(const std::string& nome, const std::string& cpf, const std::string& genero);
-    ~Praticante(); // Destrutor para gerenciar o ponteiro do plano
+    Praticante(int id, const std::string &nome, const std::string &cpf, const std::string &genero, Plano *plano = nullptr);
+    ~Praticante();
 
-    void setPlano(Plano* novoPlano);
-    int getId();
-    Plano* getPlano() const;
+    // GETTERS
+    Plano *getPlano() const;
+    const std::vector<Aula *> &getAulasInscritas() const;
 
-    void inscreverEmAula(Aula* aula);
-    void cancelarInscricao(Aula* aula);
+    // SETTERS
+    void setPlano(Plano *novoPlano);
+
+    // REGRAS DE NEGÓCIO
+    bool inscreverEmAula(Aula *aula);
+    bool cancelarInscricao(Aula *aula);
     void listarAulasInscritas() const;
-
     void exibirDetalhes() const override;
 };
 
